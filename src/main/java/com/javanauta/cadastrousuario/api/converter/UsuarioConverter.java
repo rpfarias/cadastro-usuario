@@ -2,9 +2,10 @@ package com.javanauta.cadastrousuario.api.converter;
 
 import com.javanauta.cadastrousuario.api.request.EnderecoRequestDTO;
 import com.javanauta.cadastrousuario.api.request.UsuarioRequestDTO;
+import com.javanauta.cadastrousuario.api.response.EnderecoResponseDTO;
+import com.javanauta.cadastrousuario.api.response.UsuarioResponseDTO;
 import com.javanauta.cadastrousuario.infrastructure.entities.EnderecoEntity;
 import com.javanauta.cadastrousuario.infrastructure.entities.UsuarioEntity;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.Clock;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 public class UsuarioConverter {
 
     //private final Clock clock;
+
 
     public UsuarioEntity paraUsuarioEntity(UsuarioRequestDTO usuarioDTO) {
         return UsuarioEntity.builder()
@@ -27,7 +29,6 @@ public class UsuarioConverter {
 
     }
 
-
     private EnderecoEntity paraEnderecoEntity(EnderecoRequestDTO enderecoDTO) {
         return EnderecoEntity.builder()
                 .rua(enderecoDTO.getRua())
@@ -38,4 +39,28 @@ public class UsuarioConverter {
                 .complemento(enderecoDTO.getComplemento())
                 .build();
     }
+
+    public UsuarioResponseDTO paraUsuarioResponseDTO(UsuarioEntity entity) {
+        return UsuarioResponseDTO.builder()
+                .id(entity.getId())
+                .nome(entity.getNome())
+                .documento(entity.getDocumento())
+                .email(entity.getEmail())
+                //.dataCadastro(LocalDateTime.now(clock))
+                .endereco(paraEnderecoResponseDTO(entity.getEndereco()))
+                .build();
+
+    }
+
+    private EnderecoResponseDTO paraEnderecoResponseDTO(EnderecoEntity entity) {
+        return EnderecoResponseDTO.builder()
+                .rua(entity.getRua())
+                .bairro(entity.getBairro())
+                .cep(entity.getCep())
+                .cidade(entity.getCidade())
+                .numero(entity.getNumero())
+                .complemento(entity.getComplemento())
+                .build();
+    }
+
 }

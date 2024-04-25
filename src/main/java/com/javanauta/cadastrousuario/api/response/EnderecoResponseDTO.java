@@ -1,15 +1,23 @@
 package com.javanauta.cadastrousuario.api.response;
 
-public record EnderecoResponseDTO(String rua,
+import lombok.*;
 
-                                  Long numero,
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class EnderecoResponseDTO{
 
-                                  String bairro,
+    private String rua;
 
-                                  String complemento,
+    private Long numero;
 
-                                  String cidade,
+    private String bairro;
 
-                                  String cep) {
+    private String complemento;
 
+    private String cidade;
+
+    private String cep;
 }
